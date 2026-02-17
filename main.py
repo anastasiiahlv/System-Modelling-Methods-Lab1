@@ -11,7 +11,7 @@ def F_t(t: float, rate: float) -> float:
     return 1.0 - np.exp(-rate * t)
 
 
-def х_square_verification(x: np.ndarray, rate_used: float, m: int = 12, alpha: float = 0.05, q: int = 0):
+def х_square_verification(x: np.ndarray, rate_used: float, m: int = 30, alpha: float = 0.05, q: int = 0):
     if rate_used <= 0:
         raise ValueError("rate_used має бути > 0")
     if m < 2:
@@ -22,7 +22,7 @@ def х_square_verification(x: np.ndarray, rate_used: float, m: int = 12, alpha: 
     x = np.asarray(x)
     n = x.size
 
-    # Межі інтервалів за квантилями
+    # Межі інтервалів
     p = np.arange(0, m + 1) / m
     edges = -np.log(1 - p[:-1]) / rate_used  # F^(-1)(t)= -(ln(1-p)/rate
     edges = np.append(edges, np.inf)
@@ -78,7 +78,6 @@ def х_square_verification(x: np.ndarray, rate_used: float, m: int = 12, alpha: 
 def main():
     # 1) Генерація 3000 чисел
     n = 3000
-    np.random.seed(42)
 
     while True:
         try:
@@ -118,7 +117,7 @@ def main():
 
     # 4-5) критерій χ²
     alpha = 0.05
-    m = 12
+    m = 30
 
     q = 0
 
